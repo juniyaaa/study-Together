@@ -68,10 +68,10 @@ function onColorClick(event){
 function onModeClick() {
     if (isFilling){
         isFilling = false;
-        modeBtn.innerText = '채우기';
+        modeBtn.innerText = '🖌️채우기';
     } else{
         isFilling = true;
-        modeBtn.innerText = '그리기';
+        modeBtn.innerText = '✏️그리기';
     }
 
 }
@@ -83,14 +83,19 @@ function onCanvasclick(){
 }
 
 function onClearClick(){
+    if(window.confirm(
+        "확인을 누르시면 모든 작업이 취소됩니다."
+    ))
     ctx.fillStyle = 'white';
     ctx.fillRect(0,0,canvasWidth, canvasHeight)
+    isFilling = false;
+    modeBtn.innerText = '🖌️채우기';
 }
 
 function onEraserClick(){
     ctx.strokeStyle = 'white';
     isFilling =false;
-    modeBtn.innerText = '그리기';
+    modeBtn.innerText = '✏️그리기';
 }
 
 function onFileChange(event){
@@ -104,26 +109,6 @@ function onFileChange(event){
     }
 }
 
-
-// function setFont(fontFamily, fontUrl) {
-//     let fontFile = new FontFace(fontFamily, "url(" + fontUrl + ")");
-//     document.fonts.add(fontFile);
-//     fontFile.load();
-//     fontStyle = fontFile.family;
-// }
-
-// function onSelectChange(e) {
-//     const fontFamily = e.target.value;
-//     const fontIndex = e.target.selectedIndex;
-//     const fontUrlList = [
-//       "",
-//       "https://fonts.gstatic.com/s/sassyfrass/v5/LhWhMVrGOe0FLb97BjhsE-9aEtSygOan.woff2",
-//       "https://fonts.gstatic.com/s/robotomono/v22/L0xuDF4xlVMF-BfR8bXMIhJHg45mwgGEFl0_3vq_ROW4AJi8SJQt.woff2",
-//     ];
-//     const fontUrl = fontUrlList[fontIndex];
-//     setFont(fontFamily, fontUrl);
-//   }
-
 function onRadioClick(e) {
     if (e.target.value === "font-style-fill") {
       fontStroke = false;
@@ -131,6 +116,13 @@ function onRadioClick(e) {
       fontStroke = true;
     }
   }
+
+// function changeFontName(name) {
+//     document.execCommand('fontName', false, name);
+//     focusEditor();
+//   }
+
+
 
 function FontSizeChange(event){
     fontSize = event.target.value;
