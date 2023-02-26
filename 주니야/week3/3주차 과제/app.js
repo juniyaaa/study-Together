@@ -26,7 +26,7 @@ let isPainting = false;
 let isFilling = false;
 let fontSize = selectFontSize.value
 let fontStroke = true;
-
+let fontface = fontNameSelector.value
 
 function onMove(event) {
     if (isPainting){
@@ -117,13 +117,6 @@ function onRadioClick(e) {
     }
   }
 
-// function changeFontName(name) {
-//     document.execCommand('fontName', false, name);
-//     focusEditor();
-//   }
-
-
-
 function FontSizeChange(event){
     fontSize = event.target.value;
 }
@@ -134,10 +127,16 @@ function onDoubleClick(event){
     ctx.restore();
   }
 
+function changeFontName(name) {
+    console.log(name)
+    fontface = name
+  }
+
 function paintText(e) {
     const text = textInput.value;
     ctx.lineWidth = 1;
-    const selectedStyle = `${fontSize}px 'serif'`;
+    const selectedStyle = `${fontSize}px '${fontface}'`;
+    console.log(selectedStyle)
     ctx.font = selectedStyle;
     if (text !== "" && fontStroke) {
       ctx.strokeText(text, e.offsetX, e.offsetY);
@@ -145,7 +144,6 @@ function paintText(e) {
       ctx.fillText(text, e.offsetX, e.offsetY);
     }
   }
-
 
 function onSaveClick(){
     const url = canvas.toDataURL();
@@ -155,10 +153,7 @@ function onSaveClick(){
     a.click();
 }
 
-function changeFontName(name) {
-    document.execCommand('fontName', false, name);
-    focusEditor();
-  }
+
 
 canvas.addEventListener('dblclick', onDoubleClick)
 canvas.addEventListener('mousemove', onMove);
